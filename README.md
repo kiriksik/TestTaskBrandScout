@@ -23,6 +23,16 @@ cd TestTaskBrandScout
 docker-compose up --build
 ```
 
+Список команд, которые проверялись через curl:
+```bash 
+curl -X POST http://localhost:8080/quotes -H "Content-Type: application/json" -d '{"author":"Confucius", "quote":"Life is simple, but we insist on making it complicated."}'
+curl -X POST http://localhost:8080/quotes -H "Content-Type: application/json" -d '{"author":"Kokorin", "quote":"A chto pohozhe."}'
+curl http://localhost:8080/quotes 
+curl http://localhost:8080/quotes/random
+curl http://localhost:8080/quotes?author=Confucius
+curl -X DELETE http://localhost:8080/quotes/1
+```
+
 ## Технологии
 По заданию используются стандартные библиотеки(требование), кроме:
 - github.com/lib/pq - драйвер для БД postgreSQL
