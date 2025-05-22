@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  database:
+    image: postgres:15
+    container_name: database
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: test
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    env_file:
+      - .env
+    # entrypoint: >
+    #   sh -c "/go/bin/goose up &&
+    #          ./main"
+    entrypoint: >
+      sh -c "
+        until pg_isready -h database -p 5432; do
+          echo 'Waiting for postgres...';
+          sleep 2;
+        done &&
+        /go/bin/goose up &&
+          ./main
+      "
+
+volumes:
+  postgres_data:
