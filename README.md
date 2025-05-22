@@ -18,7 +18,7 @@ Unit-тесты:
 
 
 ```bash
-git clone https://github.com/your-username/TestTaskBrandScout.git
+git clone https://github.com/kiriksik/TestTaskBrandScout.git
 cd TestTaskBrandScout
 docker-compose up --build
 ```
